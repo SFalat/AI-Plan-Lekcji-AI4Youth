@@ -8,7 +8,7 @@ import eel
 # Use the latest version of Eel from parent directory
 sys.path.insert(1, '../../')
 
-#s
+#test
 
 
 @eel.expose  # Expose function to JavaScript
