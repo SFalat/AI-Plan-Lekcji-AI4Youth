@@ -39,14 +39,22 @@ const StyledOptionInput = styled.input`
   :hover {
     opacity: 0.9;
   }
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
 `;
 
 
 function BasicInfo() {
   return <StyledBasicInfo>
     <StyledOption>
-    <label htmlFor="number_of_teachers">Ilość nauczycieli:</label>
-    <StyledOptionInput type="number" name="number_of_teachers"/>
+    <label htmlFor="number_of_teachers">Ilość nauczycieli</label>
+      <StyledOptionInput type="number" name="number_of_teachers"/>
+      <label htmlFor="number_of_hours">Ilość godzin w ciągu dnia</label>
+      <StyledOptionInput type="number" name="number_of_hours"/>
+      <label htmlFor="number_of_classrooms">Ilość sal lekcyjnych w szkole</label>
+      <StyledOptionInput type="number" name="number_of_classrooms"/>
+      <label htmlFor="number_of_groups">Ilość oddziałów w szkole</label>
+      <StyledOptionInput type="number" name="number_of_groups"/>
     </StyledOption>
   </StyledBasicInfo>;
 }
