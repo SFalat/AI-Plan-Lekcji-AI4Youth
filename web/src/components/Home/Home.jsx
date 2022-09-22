@@ -119,7 +119,7 @@ function Home() {
           <Option path to={'/open-file'}>
             Otwórz plik
           </Option>
-          <Option path to={'/create-file'}>
+          <Option path to={'/basic-info'}>
             Utwórz nowy plik
           </Option>
           <Option
