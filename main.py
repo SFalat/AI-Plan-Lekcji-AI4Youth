@@ -54,7 +54,9 @@ def start_eel(develop):
             eel.start(page, mode='edge', **eel_kwargs)
         else:
             raise
-
+@eel.expose
+def end_session():
+    exit()
 
 if __name__ == '__main__':
     # Pass any second argument to enable debugging
