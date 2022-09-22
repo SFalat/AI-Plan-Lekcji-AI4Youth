@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import background from '../../assets/background.jpg';
 import eznLogo from '../../assets/ezn-logo.png';
-import {eel} from "../../App.jsx";
+import { eel } from '../../App.jsx';
+
 const StyledHome = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -108,8 +109,6 @@ const Option = props => {
   );
 };
 
-const endSession = () => {};
-
 function Home() {
   return (
     <StyledHome>
@@ -124,9 +123,10 @@ function Home() {
           </Option>
           <Option
             button
-            clickHandler={
-              ()=>{eel.end_session();}
-            }
+            clickHandler={() => {
+              eel.end_session();
+              window.close();
+            }}
           >
             Zakończ
           </Option>
