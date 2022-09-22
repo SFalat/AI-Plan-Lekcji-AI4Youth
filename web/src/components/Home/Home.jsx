@@ -11,6 +11,15 @@ const StyledHome = styled.div`
   grid-auto-rows: 1fr;
   height: 100vh;
   background-image: url(${background});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(5, 1fr);
+    .logo-space {
+      display: none;
+    }
+  }
 `;
 
 const StyledOptionsBar = styled.div`
@@ -132,7 +141,7 @@ function Home() {
           </Option>
         </StyledOptionsList>
       </StyledOptionsBar>
-      <StyledLogoSpace>
+      <StyledLogoSpace className="logo-space">
         <StyledSchoolLogo src={eznLogo} />
       </StyledLogoSpace>
     </StyledHome>
