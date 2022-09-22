@@ -1,13 +1,11 @@
-"""Main Python application file for the EEL-CRA demo."""
-
 import os
 import platform
-import random
+
 import sys
 
 import eel
 
-# Use latest version of Eel from parent directory
+# Use the latest version of Eel from parent directory
 sys.path.insert(1, '../../')
 
 
@@ -22,20 +20,6 @@ def say_hello_py(x):
 def expand_user(folder):
     """Return the full path to display in the UI."""
     return '{}/*'.format(os.path.expanduser(folder))
-
-
-@eel.expose
-def pick_file(folder):
-    """Return a random file from the specified folder."""
-    folder = os.path.expanduser(folder)
-    if os.path.isdir(folder):
-        listFiles = [_f for _f in os.listdir(
-            folder) if not os.path.isdir(os.path.join(folder, _f))]
-        if len(listFiles) == 0:
-            return 'No Files found in {}'.format(folder)
-        return random.choice(listFiles)
-    else:
-        return '{} is not a valid folder'.format(folder)
 
 
 def start_eel(develop):
@@ -73,7 +57,5 @@ def start_eel(develop):
 
 
 if __name__ == '__main__':
-    import sys
-
     # Pass any second argument to enable debugging
     start_eel(develop=len(sys.argv) == 2)
