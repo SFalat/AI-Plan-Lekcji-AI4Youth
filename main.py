@@ -1,15 +1,14 @@
 import json
 import os
 import platform
-
 import sys
-
 import eel
 
 # Use the latest version of Eel from parent directory
 sys.path.insert(1, '../../')
 
-#test
+
+# test
 
 
 @eel.expose  # Expose function to JavaScript
@@ -18,11 +17,11 @@ def say_hello_py(x):
     print('Hello from %s' % x)  # noqa T001
     eel.say_hello_js('Python {from within say_hello_py()}!')
 
+
 @eel.expose
 def confirm_basic_info(x):
     """Print message from JavaScript on app initialization, then call a JS function."""
     print(json.dumps(x))
-
 
 
 @eel.expose
