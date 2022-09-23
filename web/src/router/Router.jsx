@@ -2,7 +2,7 @@ import React from 'react';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import Home from '../components/Home/Home';
 import BasicInfo from '../components/BasicInfo/BasicInfo';
-
+import TeacherInfo from '../components/TeacherInfo/TeacherInfo'
 const router = createHashRouter([
   {
     path: '/',
@@ -11,6 +11,10 @@ const router = createHashRouter([
   {
     path: '/basic-info',
     element: <BasicInfo />,
+  },
+  {
+    path: '/teacher-info',
+    element: <TeacherInfo />,
   },
 ]);
 

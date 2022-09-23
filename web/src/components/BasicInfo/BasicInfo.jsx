@@ -71,6 +71,28 @@ const StyledConfirmButton = styled.button`
   border-radius: 0.5rem;
   cursor: pointer;
   margin-right: 1rem;
+  margin-left: 1rem;
+  min-width: 7rem;
+  :hover {
+    opacity: 0.9;
+  }
+`;
+const StyledForwardButton = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: #14b1ae;
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  min-width: 7rem;
   :hover {
     opacity: 0.9;
   }
@@ -153,6 +175,7 @@ function BasicInfo() {
       <StyledButtons>
         <StyledConfirmButton onClick={confirmBasicInfo}>Potwierdź</StyledConfirmButton>
         <StyledBackButton to={'../'}>Cofnij</StyledBackButton>
+          <StyledForwardButton to={'/teacher-info'}>Dalej</StyledForwardButton>
       </StyledButtons>
     </StyledBasicInfo>
   );
