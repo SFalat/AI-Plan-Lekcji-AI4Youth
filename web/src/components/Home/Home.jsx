@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import background from '../../assets/background.jpg';
 import eznLogo from '../../assets/ezn-logo.png';
 import { eel } from '../../App.jsx';
+import { IconFilePlus, IconFileImport, IconX } from '@tabler/icons';
 
 const StyledHome = styled.div`
   display: grid;
@@ -125,10 +126,12 @@ function Home() {
         <StyledTitle>Plan lekcji</StyledTitle>
         <StyledOptionsList>
           <Option path to={'/open-file'}>
-            Otwórz plik
+            <IconFileImport />
+            <p>Otwórz plik</p>
           </Option>
           <Option path to={'/basic-info'}>
-            Utwórz nowy plik
+            <IconFilePlus />
+            <p>Utwórz nowy plik</p>
           </Option>
           <Option
             button
@@ -137,7 +140,8 @@ function Home() {
               window.close();
             }}
           >
-            Zakończ
+            <IconX />
+            <p>Zakończ</p>
           </Option>
         </StyledOptionsList>
       </StyledOptionsBar>

@@ -38,8 +38,9 @@ const StyledOptionInput = styled.input`
   text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 0.5rem;
-  :hover {
-    opacity: 0.9;
+  outline: none;
+  :focus {
+    border: solid 1px white;
   }
   margin-bottom: 1rem;
   margin-top: 0.5rem;
@@ -64,6 +65,7 @@ const StyledConfirmButton = styled.button`
   padding: 0.75rem 1rem;
   text-decoration: none;
   border-radius: 0.5rem;
+  cursor: pointer;
   :hover {
     opacity: 0.9;
   }
