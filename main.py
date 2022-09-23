@@ -4,6 +4,8 @@ import platform
 import sys
 import eel
 
+matrix = [[0 for i in range(0, 10)] for j in range(0, 10)]
+
 # Use the latest version of Eel from parent directory
 sys.path.insert(1, '../../')
 
@@ -66,8 +68,16 @@ def start_eel(develop):
 
 
 @eel.expose
+# Function for closing python program
 def end_session():
     exit()
+
+
+@eel.expose
+def time_table(x, y, content):
+    global matrix
+    matrix[y][x] = content
+    return json.dump(matrix)
 
 
 if __name__ == '__main__':
