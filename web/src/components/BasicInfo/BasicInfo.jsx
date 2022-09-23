@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { eel } from '../../App.jsx';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const StyledBasicInfo = styled.div`
   display: flex;
@@ -55,6 +57,9 @@ const StyledHeader = styled.header`
 
 const StyledButtons = styled.div`
   display: flex;
+  *:not(:last-child) {
+    margin-right: 1rem;
+  }
 `;
 
 const StyledConfirmButton = styled.button`
@@ -70,33 +75,12 @@ const StyledConfirmButton = styled.button`
   text-decoration: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  margin-right: 1rem;
-  margin-left: 1rem;
   min-width: 7rem;
   :hover {
     opacity: 0.9;
   }
 `;
-const StyledForwardButton = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background-color: #14b1ae;
-  color: #fff;
-  font-size: 1rem;
-  font-family: inherit;
-  padding: 0.75rem 1rem;
-  text-decoration: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  margin-right: 1rem;
-  margin-left: 1rem;
-  min-width: 7rem;
-  :hover {
-    opacity: 0.9;
-  }
-`;
+
 const StyledBackButton = styled(Link)`
   display: flex;
   align-items: center;
@@ -116,6 +100,8 @@ const StyledBackButton = styled(Link)`
 `;
 
 function BasicInfo() {
+  const navigate = useNavigate();
+
   const [basicInfo, setBasicInfo] = useState({
     numberOfTeachers: 1,
     numberOfHours: 1,
@@ -123,8 +109,13 @@ function BasicInfo() {
     numberOfGroups: 1,
   });
 
-  const confirmBasicInfo = () => {
-    eel.confirm_basic_info({ basicInfo: basicInfo });
+  const confirmBasicInfo = async () => {
+    let response = await eel.confirm_basic_info({ basicInfo: basicInfo })();
+    if (response.status === 'success') {
+      navigate('/teacher-info');
+    } else {
+      toast.error(response.message || 'Wystąpił błąd');
+    }
   };
 
   return (
@@ -173,9 +164,8 @@ function BasicInfo() {
         />
       </StyledOption>
       <StyledButtons>
-        <StyledConfirmButton onClick={confirmBasicInfo}>Potwierdź</StyledConfirmButton>
         <StyledBackButton to={'../'}>Cofnij</StyledBackButton>
-          <StyledForwardButton to={'/teacher-info'}>Dalej</StyledForwardButton>
+        <StyledConfirmButton onClick={confirmBasicInfo}>Potwierdź</StyledConfirmButton>
       </StyledButtons>
     </StyledBasicInfo>
   );

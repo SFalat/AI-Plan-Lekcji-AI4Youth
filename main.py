@@ -20,8 +20,9 @@ def say_hello_py(x):
 
 @eel.expose
 def confirm_basic_info(x):
-    """Print message from JavaScript on app initialization, then call a JS function."""
     print(json.dumps(x))
+    return {'status': 'success'}
+    # return {'status': 'error', 'message': 'test'}
 
 
 @eel.expose
