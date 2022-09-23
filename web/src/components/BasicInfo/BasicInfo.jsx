@@ -53,12 +53,34 @@ const StyledHeader = styled.header`
   font-weight: 600;
 `;
 
+const StyledButtons = styled.div`
+  display: flex;
+`;
+
 const StyledConfirmButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   background-color: #14b1ae;
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-right: 1rem;
+  :hover {
+    opacity: 0.9;
+  }
+`;
+const StyledBackButton = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.25);
   color: #fff;
   font-size: 1rem;
   font-family: inherit;
@@ -128,7 +150,10 @@ function BasicInfo() {
           }}
         />
       </StyledOption>
-      <StyledConfirmButton onClick={confirmBasicInfo}>Potwierdź</StyledConfirmButton>
+      <StyledButtons>
+        <StyledConfirmButton onClick={confirmBasicInfo}>Potwierdź</StyledConfirmButton>
+        <StyledBackButton to={'../'}>Cofnij</StyledBackButton>
+      </StyledButtons>
     </StyledBasicInfo>
   );
 }
