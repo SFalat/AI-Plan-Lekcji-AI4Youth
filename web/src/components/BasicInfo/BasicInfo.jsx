@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { eel } from '../../App.jsx';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
 
 const StyledBasicInfo = styled.div`
   display: flex;
@@ -57,7 +58,7 @@ const StyledHeader = styled.header`
 
 const StyledButtons = styled.div`
   display: flex;
-  *:not(:last-child) {
+  & > *:not(:last-child) {
     margin-right: 1rem;
   }
 `;
@@ -164,8 +165,14 @@ function BasicInfo() {
         />
       </StyledOption>
       <StyledButtons>
-        <StyledBackButton to={'../'}>Cofnij</StyledBackButton>
-        <StyledConfirmButton onClick={confirmBasicInfo}>Potwierdź</StyledConfirmButton>
+        <StyledBackButton to={'../'}>
+          <IconChevronLeft />
+          <p>Cofnij</p>
+        </StyledBackButton>
+        <StyledConfirmButton onClick={confirmBasicInfo}>
+          <p>Dalej</p>
+          <IconChevronRight />
+        </StyledConfirmButton>
       </StyledButtons>
     </StyledBasicInfo>
   );

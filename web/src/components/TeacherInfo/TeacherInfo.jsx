@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { eel } from '../../App.jsx';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
 
 const StyledTeacherInfo = styled.div`
   display: flex;
@@ -102,8 +102,14 @@ function TeacherInfo() {
       <StyledHeader>Uzupełnij informacje o nauczycielach:</StyledHeader>
 
       <StyledButtons>
-        <StyledBackButton to={'../basic-info'}>Cofnij</StyledBackButton>
-        <StyledForwardButton to={''}>Dalej</StyledForwardButton>
+        <StyledBackButton to={'/basic-info'}>
+          <IconChevronLeft />
+          <p>Cofnij</p>
+        </StyledBackButton>
+        <StyledForwardButton to={''}>
+          <p>Dalej</p>
+          <IconChevronRight />
+        </StyledForwardButton>
       </StyledButtons>
     </StyledTeacherInfo>
   );
