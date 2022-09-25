@@ -13,6 +13,7 @@ const router = createHashRouter([
   },
   {
     path: '/basic-info',
+    element: <BasicInfo />,
   },
   {
     path: '/teacher-info',
