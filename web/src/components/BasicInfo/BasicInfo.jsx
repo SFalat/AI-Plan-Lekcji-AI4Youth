@@ -111,7 +111,8 @@ function BasicInfo() {
   });
 
   const confirmBasicInfo = async () => {
-    let response = await eel.confirm_basic_info({ basicInfo: basicInfo })();
+    let response = await eel.request_handler('confirm_basic_info', { basicInfo: basicInfo })();
+    console.log(response);
     if (response.status === 'success') {
       navigate('/teacher-info');
     } else {

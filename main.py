@@ -1,16 +1,25 @@
 import json
-import os
 import platform
 import sys
 import eel
 
-matrix = [[0 for i in range(0, 10)] for j in range(0, 10)]
 
 # Use the latest version of Eel from parent directory
 sys.path.insert(1, '../../')
 
 
-# test
+@eel.expose
+def request_handler(name, data):
+    print('request_handler', name)
+    print('data:')
+    print(json.dumps(data))
+
+    result = functions[name](data)
+    # TODO: add response data
+    if result:
+        return {'status': 'success', 'response': 'placeholder'}
+    else:
+        return {'status': 'error', 'message': 'test'}
 
 
 @eel.expose  # Expose function to JavaScript
@@ -20,21 +29,18 @@ def say_hello_py(x):
     eel.say_hello_js('Python {from within say_hello_py()}!')
 
 
-@eel.expose
-def confirm_basic_info(x):
-    print(json.dumps(x))
-    return {'status': 'success'}
-    # return {'status': 'error', 'message': 'test'}
+def confirm_basic_info(data):
+    print(json.dumps(data))
+    return True
 
 
-@eel.expose
-def expand_user(folder):
-    """Return the full path to display in the UI."""
-    return '{}/*'.format(os.path.expanduser(folder))
+functions = {
+    'confirm_basic_info': confirm_basic_info
+}
 
 
 def start_eel(develop):
-    """Start Eel with either production or development configuration."""
+    # Start Eel with either production or development configuration
 
     if develop:
         directory = 'web/src'
@@ -47,9 +53,7 @@ def start_eel(develop):
 
     eel.init(directory, ['.tsx', '.ts', '.jsx', '.js', '.html'])
 
-    # These will be queued until the first connection is made, but won't be repeated on a page reload
     say_hello_py('Python World!')
-    # Call a JavaScript function (must be after `eel.init()`)
     eel.say_hello_js('Python World!')
 
     eel_kwargs = dict(
