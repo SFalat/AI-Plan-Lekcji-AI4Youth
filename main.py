@@ -16,22 +16,26 @@ def request_handler(name, data):
 
     result = functions[name](data)
     # TODO: add response data
-    if result:
+    if result['status']:
         return {'status': 'success', 'response': 'placeholder'}
     else:
-        return {'status': 'error', 'message': 'test'}
+        message = 'Wystąpił błąd'
+        if 'message' in result:
+            message = result['message']
+        return {'status': 'error', 'message': message}
 
 
 @eel.expose  # Expose function to JavaScript
 def say_hello_py(x):
-    """Print message from JavaScript on app initialization, then call a JS function."""
+    # Print message from JavaScript on app initialization, then call a JS function
     print('Hello from %s' % x)  # noqa T001
     eel.say_hello_js('Python {from within say_hello_py()}!')
 
 
 def confirm_basic_info(data):
     print(json.dumps(data))
-    return True
+    # return {'status': False}
+    return {'status': True, 'message': 'placeholder'}
 
 
 functions = {
