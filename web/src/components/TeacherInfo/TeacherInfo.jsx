@@ -102,11 +102,11 @@ function TeacherInfo() {
       <StyledHeader>Uzupełnij informacje o nauczycielach:</StyledHeader>
 
       <StyledButtons>
-        <StyledBackButton to={'/basic-info'}>
+        <StyledBackButton to="/basic-info">
           <IconChevronLeft />
           <p>Cofnij</p>
         </StyledBackButton>
-        <StyledForwardButton to={''}>
+        <StyledForwardButton to="/timetable">
           <p>Dalej</p>
           <IconChevronRight />
         </StyledForwardButton>

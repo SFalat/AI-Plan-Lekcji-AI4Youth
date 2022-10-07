@@ -15,9 +15,10 @@ def request_handler(name, data):
     print(json.dumps(data))
 
     result = functions[name](data)
+    print(result)
     # TODO: add response data
     if result['status']:
-        return {'status': 'success', 'response': 'placeholder'}
+        return {'status': 'success', 'data': result['data']}
     else:
         message = 'Wystąpił błąd'
         if 'message' in result:
@@ -35,11 +36,15 @@ def say_hello_py(x):
 def confirm_basic_info(data):
     print(json.dumps(data))
     # return {'status': False}
-    return {'status': True, 'message': 'placeholder'}
+    return {'status': True, 'data': 'placeholder'}
+
+def get_hours_in_day(data):
+    return {'status': True, 'data': 10, }
 
 
 functions = {
-    'confirm_basic_info': confirm_basic_info
+    'confirm_basic_info': confirm_basic_info,
+    'get_hours_in_day': get_hours_in_day
 }
 
 
