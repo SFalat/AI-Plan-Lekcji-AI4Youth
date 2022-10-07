@@ -38,13 +38,22 @@ def confirm_basic_info(data):
     # return {'status': False}
     return {'status': True, 'data': 'placeholder'}
 
+
 def get_hours_in_day(data):
     return {'status': True, 'data': 10, }
 
 
+def get_result(data):
+    with open('mock.json', encoding='utf-8') as user_file:
+        file_contents = user_file.read()
+        # print(file_contents)
+    return {'status': True, 'data': file_contents}
+
+
 functions = {
     'confirm_basic_info': confirm_basic_info,
-    'get_hours_in_day': get_hours_in_day
+    'get_hours_in_day': get_hours_in_day,
+    'get_result': get_result,
 }
 
 

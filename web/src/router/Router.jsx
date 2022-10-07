@@ -5,6 +5,7 @@ import BasicInfo from '../components/BasicInfo/BasicInfo';
 import TeacherInfo from '../components/TeacherInfo/TeacherInfo';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import Timetable from '../components/Timetable/Timetable';
+import Result from '../components/Result/Result';
 
 const router = createHashRouter([
   {
@@ -23,6 +24,10 @@ const router = createHashRouter([
   {
     path: '/timetable',
     element: <Timetable />,
+  },
+  {
+    path: '/result',
+    element: <Result />,
   },
 ]);
 

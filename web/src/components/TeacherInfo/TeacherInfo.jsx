@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
+import Buttons from '~/components/StyledButtons/Buttons';
+import BackButton from '~/components/StyledButtons/BackButton';
+import ForwardButton from '~/components/StyledButtons/ForwardButton';
 
 const StyledTeacherInfo = styled.div`
   display: flex;
@@ -53,64 +55,15 @@ const StyledHeader = styled.header`
   font-weight: 600;
 `;
 
-const StyledButtons = styled.div`
-  display: flex;
-`;
-
-const StyledBackButton = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.25);
-  color: #fff;
-  font-size: 1rem;
-  font-family: inherit;
-  padding: 0.75rem 1rem;
-  text-decoration: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  :hover {
-    opacity: 0.9;
-  }
-`;
-
-const StyledForwardButton = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background-color: #14b1ae;
-  color: #fff;
-  font-size: 1rem;
-  font-family: inherit;
-  padding: 0.75rem 1rem;
-  text-decoration: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  margin-right: 1rem;
-  margin-left: 1rem;
-  min-width: 7rem;
-  :hover {
-    opacity: 0.9;
-  }
-`;
-
 function TeacherInfo() {
   return (
     <StyledTeacherInfo>
       <StyledHeader>Uzupełnij informacje o nauczycielach:</StyledHeader>
 
-      <StyledButtons>
-        <StyledBackButton to="/basic-info">
-          <IconChevronLeft />
-          <p>Cofnij</p>
-        </StyledBackButton>
-        <StyledForwardButton to="/timetable">
-          <p>Dalej</p>
-          <IconChevronRight />
-        </StyledForwardButton>
-      </StyledButtons>
+      <Buttons>
+        <BackButton to="/basic-info" />
+        <ForwardButton to="/timetable" />
+      </Buttons>
     </StyledTeacherInfo>
   );
 }

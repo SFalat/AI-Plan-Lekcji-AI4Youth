@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import styled from 'styled-components';
 import { eel } from '../../App.jsx';
+import Buttons from '~/components/StyledButtons/Buttons';
+import BackButton from '~/components/StyledButtons/BackButton';
+import ForwardButton from '~/components/StyledButtons/ForwardButton';
 
 const StyledTable = styled.table`
   border-collapse: collapse;
@@ -51,10 +54,14 @@ function Timetable() {
         </thead>
         <tbody>
           {hoursInDay.map(val => (
-            <StyledTr key={val}>{cols.map(col => (col === 'lp.' ? <StyledTd>{val}</StyledTd> : <StyledTd key={col} />))}</StyledTr>
+            <StyledTr key={val}>{cols.map(col => (col === 'lp.' ? <StyledTd key={col}>{val}</StyledTd> : <StyledTd key={col} />))}</StyledTr>
           ))}
         </tbody>
       </StyledTable>
+      <Buttons>
+        <BackButton to="/teacher-info" />
+        <ForwardButton to="/result" />
+      </Buttons>
     </div>
   );
 }
