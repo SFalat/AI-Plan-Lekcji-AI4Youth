@@ -7,16 +7,19 @@ const StyledTable = styled.table`
   border-collapse: collapse;
 `;
 
-const StyledTr = styled.tr`
+const StyledTr = styled.tr``;
+
+const StyledTd = styled.td`
   border: 1px solid white;
 `;
 
 function Timetable() {
-  const [cols, setCols] = useState([]);
   const [hoursInDay, setHoursInDay] = useState([]);
 
+  const cols = ['lp.', 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek'];
+
   const setDays = number => {
-    const hours = [...Array(number).keys()];
+    const hours = [...Array(number + 1).keys()];
     hours.map(e => e.toString());
     setHoursInDay(hours);
   };
@@ -39,11 +42,16 @@ function Timetable() {
   return (
     <div>
       <StyledTable>
+        <thead>
+          <StyledTr>
+            {cols.map(col => (
+              <StyledTd key={col}>{col}</StyledTd>
+            ))}
+          </StyledTr>
+        </thead>
         <tbody>
           {hoursInDay.map(val => (
-            <StyledTr key={val}>
-              <td>{val}</td>
-            </StyledTr>
+            <StyledTr key={val}>{cols.map(col => (col === 'lp.' ? <StyledTd>{val}</StyledTd> : <StyledTd key={col} />))}</StyledTr>
           ))}
         </tbody>
       </StyledTable>
