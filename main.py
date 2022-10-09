@@ -39,8 +39,17 @@ def confirm_basic_info(data):
     return {'status': True, 'data': 'placeholder'}
 
 
-def get_hours_in_day(data):
-    return {'status': True, 'data': 10, }
+def get_timetable_data(data):
+    return {
+        'status': True,
+        'data': {
+            'hours': 10,
+            'teachers': (
+                {'name': 'Jan Kowalski',
+                    'availability': '11111111110000000000111111111100000000001111111111'},
+            )
+        }
+    }
 
 
 def get_result(data):
@@ -52,7 +61,7 @@ def get_result(data):
 
 functions = {
     'confirm_basic_info': confirm_basic_info,
-    'get_hours_in_day': get_hours_in_day,
+    'get_timetable_data': get_timetable_data,
     'get_result': get_result,
 }
 
