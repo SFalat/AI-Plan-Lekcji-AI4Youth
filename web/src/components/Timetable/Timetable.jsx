@@ -5,6 +5,7 @@ import { eel } from '../../App.jsx';
 import Buttons from '~/components/StyledButtons/Buttons';
 import BackButton from '~/components/StyledButtons/BackButton';
 import ForwardButton from '~/components/StyledButtons/ForwardButton';
+import { IconCheck, IconX } from '@tabler/icons';
 
 const StyledTimetable = styled.div`
   display: flex;
@@ -45,16 +46,54 @@ const StyledBodyTd = styled.td`
   border: 1px solid hsla(0, 0%, 100%, 0.25);
   padding: 0.5rem 1rem;
   text-align: center;
+  ${({ hour }) => (hour ? `cursor: cell` : '')};
   &.available {
-    background-color: rgba(0, 255, 0, 0.25);
+    background-color: rgba(0, 255, 0, 0.1);
   }
   &.unavailable {
-    background-color: rgba(255, 0, 0, 0.25);
+    background-color: rgba(255, 0, 0, 0.1);
   }
   &.selected {
     outline-width: 2px;
     outline-style: solid;
     outline-color: rgba(64, 64, 255, 1);
+  }
+`;
+
+const AvailabilityButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  & > button:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+`;
+
+const AvailabilityButton = styled.button`
+  background-color: hsla(0, 0%, 100%, 0.1);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  background-color: ${({ available }) => (available ? 'rgba(64, 255, 64, 0.25)' : 'rgba(255, 64, 64, 0.25)')};
+  &:hover {
+    background-color: ${({ available }) => (available ? 'rgba(64, 255, 64, 0.2)' : 'rgba(255, 64, 64, 0.2)')};
+  }
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    background: white;
+    margin-left: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: ${({ available }) => (available ? 'rgb(0, 255, 0)' : 'rgb(255, 0, 0)')};
   }
 `;
 
@@ -74,7 +113,6 @@ function Timetable() {
   const [availability, setAvailability] = useState([]);
   const [selected, setSelected] = useState([]);
 
-  const [isDragging, setIsDragging] = useState(false);
   const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
   const [dragEndPos, setDragEndPos] = useState({ x: 0, y: 0 });
 
@@ -104,10 +142,6 @@ function Timetable() {
   useEffect(() => {
     fetchHoursInDay();
   }, []);
-
-  useEffect(() => {
-    console.log(availability);
-  }, [availability]);
 
   useEffect(() => {
     const columns = [];
@@ -164,12 +198,9 @@ function Timetable() {
                     row={val - 1}
                     column={colIndex - 1}
                     draggable
+                    hour
                     onDragStart={() => {
-                      setIsDragging(true);
                       setDragStartPos({ x: colIndex - 1, y: val - 1 });
-                    }}
-                    onDragEnd={() => {
-                      setIsDragging(false);
                     }}
                     onDragEnter={() => {
                       setDragEndPos({ x: colIndex - 1, y: val - 1 });
@@ -181,33 +212,32 @@ function Timetable() {
                     className={`${Number(availability[colIndex - 1][val - 1]) ? 'available' : 'unavailable'} ${
                       selected[colIndex - 1][val - 1] && 'selected'
                     }`}
-                  >
-                    col {colIndex - 1} row {val - 1}{' '}
-                  </StyledBodyTd>
+                  />
                 );
               })}
             </StyledBodyTr>
           ))}
         </StyledTbody>
       </StyledTable>
-      <div>
-        <br />
-        <button
+      <AvailabilityButtons>
+        <AvailabilityButton
+          available
           onClick={() => {
             updateAvailability(true);
           }}
         >
-          dostępne
-        </button>
-        &nbsp;
-        <button
+          <p>Dostępne</p>
+          <IconCheck />
+        </AvailabilityButton>
+        <AvailabilityButton
           onClick={() => {
             updateAvailability(false);
           }}
         >
-          niedostępne
-        </button>
-      </div>
+          <p>Niedostępne</p>
+          <IconX />
+        </AvailabilityButton>
+      </AvailabilityButtons>
       <Buttons>
         <BackButton to="/teacher-info" />
         <ForwardButton to="/result" />
