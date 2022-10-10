@@ -45,8 +45,10 @@ def get_timetable_data(data):
         'data': {
             'hours': 10,
             'teachers': (
-                {'name': 'Jan Kowalski',
-                    'availability': '11111111110000000000111111111100000000001111111111'},
+                {
+                    'name': 'Jan Kowalski',
+                    'availability': '11111111110000000000111111111100000000001111111111'
+                },
             )
         }
     }

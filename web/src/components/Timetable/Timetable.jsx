@@ -51,6 +51,11 @@ const StyledBodyTd = styled.td`
   &.unavailable {
     background-color: rgba(255, 0, 0, 0.25);
   }
+  &.selected {
+    outline-width: 2px;
+    outline-style: solid;
+    outline-color: rgba(64, 64, 255, 1);
+  }
 `;
 
 const splitIntoChunk = (arr, chunk) => {
@@ -67,6 +72,7 @@ function Timetable() {
   const [hoursInDay, setHoursInDay] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [availability, setAvailability] = useState([]);
+  const [selected, setSelected] = useState([]);
 
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
@@ -85,6 +91,11 @@ function Timetable() {
       setHours(response.data.hours);
       setTeachers(response.data.teachers);
       setAvailability(splitIntoChunk(response.data.teachers[0].availability.split(''), response.data.hours));
+      setSelected(splitIntoChunk(Array(response.data.hours * response.data.teachers[0].availability.length).fill(0), response.data.hours));
+      setSelected(prev => {
+        prev[0][0] = 1;
+        return prev;
+      });
     } else {
       toast.error(response.message || 'Wystąpił błąd');
     }
@@ -94,31 +105,42 @@ function Timetable() {
     fetchHoursInDay();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(availability);
-  // }, [availability]);
+  useEffect(() => {
+    console.log(availability);
+  }, [availability]);
 
   useEffect(() => {
-    if (isDragging) {
-      const columns = [];
-      for (let i = 0; i <= cols.length - 2; i++) {
-        const row = [];
-        for (let j = 0; j <= hoursInDay.length - 1; j++) {
-          const highestX = dragStartPos.x > dragEndPos.x ? dragStartPos.x : dragEndPos.x;
-          const lowestX = dragStartPos.x < dragEndPos.x ? dragStartPos.x : dragEndPos.x;
-          const highestY = dragStartPos.y > dragEndPos.y ? dragStartPos.y : dragEndPos.y;
-          const lowestY = dragStartPos.y < dragEndPos.y ? dragStartPos.y : dragEndPos.y;
-          if (i >= lowestX && i <= highestX && j >= lowestY && j <= highestY) {
-            row.push(true);
-          } else {
-            row.push(false);
-          }
+    const columns = [];
+    for (let i = 0; i <= cols.length - 2; i++) {
+      const row = [];
+      for (let j = 0; j <= hoursInDay.length - 1; j++) {
+        const highestX = dragStartPos.x > dragEndPos.x ? dragStartPos.x : dragEndPos.x;
+        const lowestX = dragStartPos.x < dragEndPos.x ? dragStartPos.x : dragEndPos.x;
+        const highestY = dragStartPos.y > dragEndPos.y ? dragStartPos.y : dragEndPos.y;
+        const lowestY = dragStartPos.y < dragEndPos.y ? dragStartPos.y : dragEndPos.y;
+        if (i >= lowestX && i <= highestX && j >= lowestY && j <= highestY) {
+          row.push(true);
+        } else {
+          row.push(false);
         }
-        columns.push(row);
       }
-      setAvailability(columns);
+      columns.push(row);
     }
+    // setAvailability(columns);
+    setSelected(columns);
   }, [dragEndPos]);
+
+  const updateAvailability = status => {
+    const tempAvailability = [...availability];
+    availability.forEach((row, i) => {
+      row.forEach((col, j) => {
+        if (selected[i][j]) {
+          tempAvailability[i][j] = status ? '1' : '0';
+        }
+      });
+    });
+    setAvailability(tempAvailability);
+  };
 
   return (
     <StyledTimetable>
@@ -152,7 +174,13 @@ function Timetable() {
                     onDragEnter={() => {
                       setDragEndPos({ x: colIndex - 1, y: val - 1 });
                     }}
-                    className={availability[colIndex - 1][val - 1] ? 'available' : 'unavailable'}
+                    onClick={() => {
+                      setDragStartPos({ x: colIndex - 1, y: val - 1 });
+                      setDragEndPos({ x: colIndex - 1, y: val - 1 });
+                    }}
+                    className={`${Number(availability[colIndex - 1][val - 1]) ? 'available' : 'unavailable'} ${
+                      selected[colIndex - 1][val - 1] && 'selected'
+                    }`}
                   >
                     col {colIndex - 1} row {val - 1}{' '}
                   </StyledBodyTd>
@@ -162,6 +190,24 @@ function Timetable() {
           ))}
         </StyledTbody>
       </StyledTable>
+      <div>
+        <br />
+        <button
+          onClick={() => {
+            updateAvailability(true);
+          }}
+        >
+          dostępne
+        </button>
+        &nbsp;
+        <button
+          onClick={() => {
+            updateAvailability(false);
+          }}
+        >
+          niedostępne
+        </button>
+      </div>
       <Buttons>
         <BackButton to="/teacher-info" />
         <ForwardButton to="/result" />
