@@ -252,6 +252,7 @@ function Timetable() {
     const response = await eel.request_handler('update_availability', { id: selectedTeacherId, availability: availabilityString })();
     if (response.status === 'success') {
       toast.success('Zapisano zmiany');
+      teachers.find(teacher => teacher.id === Number(selectedTeacherId)).availability = availabilityString;
     } else {
       toast.error(response.message || 'Wystąpił błąd');
     }
