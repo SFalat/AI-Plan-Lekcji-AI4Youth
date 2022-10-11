@@ -65,6 +65,11 @@ def get_timetable_data(data):
     }
 
 
+def update_availability(data):
+    print(json.dumps(data))
+    return {'status': True, 'data': {}}
+
+
 def get_result(data):
     with open('mock.json', encoding='utf-8') as user_file:
         file_contents = user_file.read()
@@ -76,6 +81,7 @@ functions = {
     'confirm_basic_info': confirm_basic_info,
     'get_timetable_data': get_timetable_data,
     'get_result': get_result,
+    'update_availability': update_availability,
 }
 
 

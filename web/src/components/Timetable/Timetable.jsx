@@ -5,7 +5,7 @@ import { eel } from '../../App.jsx';
 import Buttons from '~/components/StyledButtons/Buttons';
 import BackButton from '~/components/StyledButtons/BackButton';
 import ForwardButton from '~/components/StyledButtons/ForwardButton';
-import { IconCheck, IconX } from '@tabler/icons';
+import { IconCheck, IconDeviceFloppy, IconX } from '@tabler/icons';
 
 const StyledTimetable = styled.div`
   display: flex;
@@ -60,13 +60,22 @@ const StyledBodyTd = styled.td`
   }
 `;
 
+const TopButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 50rem;
+  margin-bottom: 1rem;
+`;
+
 const AvailabilityButtons = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
-  & > button:not(:last-child) {
+  & > *:not(:last-child) {
     margin-right: 0.5rem;
   }
 `;
@@ -82,7 +91,7 @@ const AvailabilityButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: 1rem;
   background-color: ${({ available }) => (available ? 'rgba(64, 255, 64, 0.25)' : 'rgba(255, 64, 64, 0.25)')};
   &:hover {
     background-color: ${({ available }) => (available ? 'rgba(64, 255, 64, 0.2)' : 'rgba(255, 64, 64, 0.2)')};
@@ -94,6 +103,29 @@ const AvailabilityButton = styled.button`
     margin-left: 0.5rem;
     border-radius: 0.25rem;
     background-color: ${({ available }) => (available ? 'rgb(0, 255, 0)' : 'rgb(255, 0, 0)')};
+  }
+`;
+
+const SaveButton = styled.button`
+  background-color: hsla(0, 0%, 100%, 0.1);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  &:hover {
+    background-color: hsla(0, 0%, 100%, 0.2);
+  }
+
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-left: 0.5rem;
   }
 `;
 
@@ -109,8 +141,7 @@ const StyledSelect = styled.select`
   justify-content: center;
   align-items: center;
   font-size: 1rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-right: 0.5rem;
 
   option {
     background-color: hsl(202, 48%, 10%);
@@ -216,20 +247,55 @@ function Timetable() {
     setAvailability(tempAvailability);
   };
 
+  const saveAvailability = async () => {
+    const availabilityString = availability.map(row => row.join('')).join('');
+    const response = await eel.request_handler('update_availability', { id: selectedTeacherId, availability: availabilityString })();
+    if (response.status === 'success') {
+      toast.success('Zapisano zmiany');
+    } else {
+      toast.error(response.message || 'Wystąpił błąd');
+    }
+  };
+
   return (
     <StyledTimetable>
-      <StyledSelect
-        onChange={e => {
-          handleSelectTeacher(e.target.value);
-        }}
-        defaultValue={setSelectedTeacherId}
-      >
-        {teachers.map(teacher => (
-          <option key={teacher.id} value={teacher.id}>
-            {teacher.name} {teacher.id}
-          </option>
-        ))}
-      </StyledSelect>
+      <TopButtons>
+        <StyledSelect
+          onChange={e => {
+            handleSelectTeacher(e.target.value);
+          }}
+          defaultValue={setSelectedTeacherId}
+        >
+          {teachers.map(teacher => (
+            <option key={teacher.id} value={teacher.id}>
+              {teacher.name}
+            </option>
+          ))}
+        </StyledSelect>
+        <AvailabilityButtons>
+          <AvailabilityButton
+            available
+            onClick={() => {
+              updateAvailability(true);
+            }}
+          >
+            <p>Dostępne</p>
+            <IconCheck />
+          </AvailabilityButton>
+          <AvailabilityButton
+            onClick={() => {
+              updateAvailability(false);
+            }}
+          >
+            <p>Niedostępne</p>
+            <IconX />
+          </AvailabilityButton>
+          <SaveButton onClick={saveAvailability}>
+            <p>Zapisz</p>
+            <IconDeviceFloppy />
+          </SaveButton>
+        </AvailabilityButtons>
+      </TopButtons>
       <StyledTable>
         <StyledThead>
           <StyledHeadTr>
@@ -271,25 +337,6 @@ function Timetable() {
           ))}
         </StyledTbody>
       </StyledTable>
-      <AvailabilityButtons>
-        <AvailabilityButton
-          available
-          onClick={() => {
-            updateAvailability(true);
-          }}
-        >
-          <p>Dostępne</p>
-          <IconCheck />
-        </AvailabilityButton>
-        <AvailabilityButton
-          onClick={() => {
-            updateAvailability(false);
-          }}
-        >
-          <p>Niedostępne</p>
-          <IconX />
-        </AvailabilityButton>
-      </AvailabilityButtons>
       <Buttons>
         <BackButton to="/teacher-info" />
         <ForwardButton to="/result" />

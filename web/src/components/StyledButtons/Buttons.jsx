@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledButtons = styled.div`
   display: flex;
-  margin-top: 1rem;
+  margin-top: 3rem;
   & > *:not(:last-child) {
     margin-right: 1rem;
   }
