@@ -46,8 +46,19 @@ def get_timetable_data(data):
             'hours': 10,
             'teachers': (
                 {
+                    'id': 1,
                     'name': 'Jan Kowalski',
                     'availability': '11111111110000000000111111111100000000001111111111'
+                },
+                {
+                    'id': 2,
+                    'name': 'Adam Małysz',
+                    'availability': '11111111111111111111111111111111111111111111111111'
+                },
+                {
+                    'id': 3,
+                    'name': 'Piotr Nowak',
+                    'availability': '00000000000000000000000000000000000000000000000000'
                 },
             )
         }

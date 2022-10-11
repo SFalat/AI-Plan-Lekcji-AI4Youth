@@ -97,6 +97,36 @@ const AvailabilityButton = styled.button`
   }
 `;
 
+const StyledSelect = styled.select`
+  background-color: hsla(0, 0%, 100%, 0.1);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  option {
+    background-color: hsl(202, 48%, 10%);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+  }
+`;
+
 const splitIntoChunk = (arr, chunk) => {
   const res = [];
   for (let i = 0; i < arr.length; i += chunk) {
@@ -112,6 +142,7 @@ function Timetable() {
   const [teachers, setTeachers] = useState([]);
   const [availability, setAvailability] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [selectedTeacherId, setSelectedTeacherId] = useState(null);
 
   const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
   const [dragEndPos, setDragEndPos] = useState({ x: 0, y: 0 });
@@ -124,12 +155,16 @@ function Timetable() {
 
   const fetchHoursInDay = async () => {
     const response = await eel.request_handler('get_timetable_data', {})();
-    console.log(response);
     if (response.status === 'success') {
+      const firstTeacher = response.data.teachers[0];
+
       setHours(response.data.hours);
       setTeachers(response.data.teachers);
-      setAvailability(splitIntoChunk(response.data.teachers[0].availability.split(''), response.data.hours));
-      setSelected(splitIntoChunk(Array(response.data.hours * response.data.teachers[0].availability.length).fill(0), response.data.hours));
+      setSelectedTeacherId(firstTeacher.id);
+
+      setAvailability(splitIntoChunk(firstTeacher.availability.split(''), response.data.hours));
+
+      setSelected(splitIntoChunk(Array(response.data.hours * firstTeacher.availability.length).fill(0), response.data.hours));
       setSelected(prev => {
         prev[0][0] = 1;
         return prev;
@@ -142,6 +177,12 @@ function Timetable() {
   useEffect(() => {
     fetchHoursInDay();
   }, []);
+
+  const handleSelectTeacher = id => {
+    setSelectedTeacherId(id);
+    console.log(teachers.find(teacher => teacher.id === Number(id)));
+    setAvailability(splitIntoChunk(teachers.find(teacher => teacher.id === Number(id)).availability.split(''), hoursInDay.length));
+  };
 
   useEffect(() => {
     const columns = [];
@@ -160,7 +201,6 @@ function Timetable() {
       }
       columns.push(row);
     }
-    // setAvailability(columns);
     setSelected(columns);
   }, [dragEndPos]);
 
@@ -178,6 +218,18 @@ function Timetable() {
 
   return (
     <StyledTimetable>
+      <StyledSelect
+        onChange={e => {
+          handleSelectTeacher(e.target.value);
+        }}
+        defaultValue={setSelectedTeacherId}
+      >
+        {teachers.map(teacher => (
+          <option key={teacher.id} value={teacher.id}>
+            {teacher.name} {teacher.id}
+          </option>
+        ))}
+      </StyledSelect>
       <StyledTable>
         <StyledThead>
           <StyledHeadTr>
