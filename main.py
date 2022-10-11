@@ -73,8 +73,10 @@ def update_availability(data):
 def get_result(data):
     with open('mock.json', encoding='utf-8') as user_file:
         file_contents = user_file.read()
+        json_data = json.loads(file_contents)
+        json_string = json.dumps(json_data, separators=(',', ":"))
         # print(file_contents)
-    return {'status': True, 'data': file_contents}
+    return {'status': True, 'data': json_string}
 
 
 functions = {

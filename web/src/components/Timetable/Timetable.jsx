@@ -211,7 +211,6 @@ function Timetable() {
 
   const handleSelectTeacher = id => {
     setSelectedTeacherId(id);
-    console.log(teachers.find(teacher => teacher.id === Number(id)));
     setAvailability(splitIntoChunk(teachers.find(teacher => teacher.id === Number(id)).availability.split(''), hoursInDay.length));
   };
 
