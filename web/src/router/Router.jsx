@@ -2,7 +2,7 @@ import React from 'react';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import Home from '../components/Home/Home';
 import BasicInfo from '../components/BasicInfo/BasicInfo';
-import TeacherInfo from '../components/TeacherInfo/TeacherInfo';
+import TeachersList from '../components/TeachersList/TeachersList';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import Timetable from '../components/Timetable/Timetable';
 import Result from '../components/Result/Result';
@@ -18,8 +18,8 @@ const router = createHashRouter([
     element: <BasicInfo />,
   },
   {
-    path: '/teacher-info',
-    element: <TeacherInfo />,
+    path: '/teachers-list',
+    element: <TeachersList />,
   },
   {
     path: '/timetable',

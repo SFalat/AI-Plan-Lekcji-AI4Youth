@@ -34,11 +34,6 @@ body {
   min-height: 100vh;
 }
 
-.App {
-  width: 100%;
-  min-height: 100vh;
-}
-
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #060d11;

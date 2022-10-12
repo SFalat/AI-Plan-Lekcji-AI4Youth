@@ -194,7 +194,7 @@ function Timetable() {
         </StyledTbody>
       </StyledTable>
       <Buttons>
-        <BackButton to="/teacher-info" />
+        <BackButton to="/teachers-list" />
         <ForwardButton to="/result" />
       </Buttons>
     </StyledTimetable>

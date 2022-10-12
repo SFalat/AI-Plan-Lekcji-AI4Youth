@@ -44,7 +44,7 @@ def get_timetable_data(data):
         'status': True,
         'data': {
             'hours': 10,
-            'teachers': (
+            'teachers': [
                 {
                     'id': 1,
                     'name': 'Jan Kowalski',
@@ -60,7 +60,7 @@ def get_timetable_data(data):
                     'name': 'Piotr Nowak',
                     'availability': '00000000000000000000000000000000000000000000000000'
                 },
-            )
+            ]
         }
     }
 
@@ -79,11 +79,50 @@ def get_result(data):
     return {'status': True, 'data': json_string}
 
 
+def get_teachers_list(data):
+    return {
+        'status': True,
+        'data': {
+            'teachers': [
+                {
+                    'id': 1,
+                    'name': 'Jan Kowalski',
+                    'subjects': [],
+                },
+                {
+                    'id': 2,
+                    'name': 'Adam Małysz',
+                    'subjects': [
+                        {
+                            'name': 'Matematyka',
+                            'preferredClassrooms': ['103', '104'],
+                        },
+                        {
+                            'name': 'Informatyka',
+                            'preferredClassrooms': ['207'],
+                        },
+                    ],
+                },
+                {
+                    'id': 3,
+                    'name': 'Piotr Nowak',
+                    'subjects': [
+                        {
+                            'name': 'Matematyka',
+                        },
+                    ],
+                },
+            ]
+        }
+    }
+
+
 functions = {
     'confirm_basic_info': confirm_basic_info,
     'get_timetable_data': get_timetable_data,
     'get_result': get_result,
     'update_availability': update_availability,
+    'get_teachers_list': get_teachers_list,
 }
 
 

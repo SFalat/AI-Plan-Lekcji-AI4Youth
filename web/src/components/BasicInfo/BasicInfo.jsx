@@ -71,7 +71,7 @@ function BasicInfo() {
     let response = await eel.request_handler('confirm_basic_info', { basicInfo: basicInfo })();
     console.log(response);
     if (response.status === 'success') {
-      navigate('/teacher-info');
+      navigate('/teachers-list');
     } else {
       toast.error(response.message || 'Wystąpił błąd');
     }
