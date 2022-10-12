@@ -38,13 +38,52 @@ def confirm_basic_info(data):
     # return {'status': False}
     return {'status': True, 'data': 'placeholder'}
 
-def get_hours_in_day(data):
-    return {'status': True, 'data': 10, }
+
+def get_timetable_data(data):
+    return {
+        'status': True,
+        'data': {
+            'hours': 10,
+            'teachers': (
+                {
+                    'id': 1,
+                    'name': 'Jan Kowalski',
+                    'availability': '11111111110000000000111111111100000000001111111111'
+                },
+                {
+                    'id': 2,
+                    'name': 'Adam Małysz',
+                    'availability': '11111111111111111111111111111111111111111111111111'
+                },
+                {
+                    'id': 3,
+                    'name': 'Piotr Nowak',
+                    'availability': '00000000000000000000000000000000000000000000000000'
+                },
+            )
+        }
+    }
+
+
+def update_availability(data):
+    print(json.dumps(data))
+    return {'status': True, 'data': {}}
+
+
+def get_result(data):
+    with open('mock.json', encoding='utf-8') as user_file:
+        file_contents = user_file.read()
+        json_data = json.loads(file_contents)
+        json_string = json.dumps(json_data, separators=(',', ":"))
+        # print(file_contents)
+    return {'status': True, 'data': json_string}
 
 
 functions = {
     'confirm_basic_info': confirm_basic_info,
-    'get_hours_in_day': get_hours_in_day
+    'get_timetable_data': get_timetable_data,
+    'get_result': get_result,
+    'update_availability': update_availability,
 }
 
 

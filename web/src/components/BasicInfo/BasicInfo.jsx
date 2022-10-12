@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import { eel } from '../../App.jsx';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
+import Buttons from '~/components/StyledButtons/Buttons';
+import BackButton from '~/components/StyledButtons/BackButton';
+import ConfirmButton from '~/components/StyledButtons/ConfirmButton';
 
 const StyledBasicInfo = styled.div`
   display: flex;
@@ -21,9 +23,6 @@ const StyledOption = styled.div`
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  &:not(:last-child) {
-    margin-bottom: 0.5rem;
-  }
 `;
 
 const StyledOptionInput = styled.input`
@@ -45,7 +44,9 @@ const StyledOptionInput = styled.input`
   :focus {
     border: solid 1px white;
   }
-  margin-bottom: 1rem;
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
   margin-top: 0.5rem;
 `;
 
@@ -54,50 +55,6 @@ const StyledHeader = styled.header`
   font-size: 2rem;
   margin-bottom: 2rem;
   font-weight: 600;
-`;
-
-const StyledButtons = styled.div`
-  display: flex;
-  & > *:not(:last-child) {
-    margin-right: 1rem;
-  }
-`;
-
-const StyledConfirmButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background-color: #14b1ae;
-  color: #fff;
-  font-size: 1rem;
-  font-family: inherit;
-  padding: 0.75rem 1rem;
-  text-decoration: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  min-width: 7rem;
-  :hover {
-    opacity: 0.9;
-  }
-`;
-
-const StyledBackButton = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.25);
-  color: #fff;
-  font-size: 1rem;
-  font-family: inherit;
-  padding: 0.75rem 1rem;
-  text-decoration: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  :hover {
-    opacity: 0.9;
-  }
 `;
 
 function BasicInfo() {
@@ -165,16 +122,10 @@ function BasicInfo() {
           }}
         />
       </StyledOption>
-      <StyledButtons>
-        <StyledBackButton to={'../'}>
-          <IconChevronLeft />
-          <p>Cofnij</p>
-        </StyledBackButton>
-        <StyledConfirmButton onClick={confirmBasicInfo}>
-          <p>Dalej</p>
-          <IconChevronRight />
-        </StyledConfirmButton>
-      </StyledButtons>
+      <Buttons>
+        <BackButton to={'../'} />
+        <ConfirmButton clickHandler={confirmBasicInfo} />
+      </Buttons>
     </StyledBasicInfo>
   );
 }

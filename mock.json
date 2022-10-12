@@ -1,0 +1,18 @@
+{
+  "data": {
+    "teacher": {
+      "id": 1,
+      "name": "Adam Małysz"
+    },
+    "group": {
+      "id": 1,
+      "name": "1A"
+    },
+    "classroom": {
+      "name": "100"
+    },
+    "subject": {
+      "name": "Matematyka"
+    }
+  }
+}
