@@ -1,5 +1,4 @@
 import json
-import platform
 import sys
 import eel
 
@@ -87,21 +86,41 @@ def get_teachers_list(data):
                 {
                     'id': 1,
                     'name': 'Jan Kowalski',
-                    'subjects': [],
-                },
-                {
-                    'id': 2,
-                    'name': 'Adam Małysz',
                     'subjects': [
                         {
                             'name': 'Matematyka',
-                            'preferredClassrooms': ['103', '104'],
+                            'preferredClassrooms': ['103', '104', '105', '106'],
+                        },
+                        {
+                            'name': 'Informatyka',
+                            'preferredClassrooms': ['207'],
+                        },
+                        {
+                            'name': 'Informatyka',
+                            'preferredClassrooms': ['207'],
+                        },
+                        {
+                            'name': 'Informatyka',
+                            'preferredClassrooms': ['207'],
+                        },
+                        {
+                            'name': 'Informatyka',
+                            'preferredClassrooms': ['207'],
+                        },
+                        {
+                            'name': 'Informatyka',
+                            'preferredClassrooms': ['207'],
                         },
                         {
                             'name': 'Informatyka',
                             'preferredClassrooms': ['207'],
                         },
                     ],
+                },
+                {
+                    'id': 2,
+                    'name': 'Adam Małysz',
+                    'subjects': [],
                 },
                 {
                     'id': 3,
@@ -117,12 +136,22 @@ def get_teachers_list(data):
     }
 
 
+def get_classrooms(data):
+    return {
+        'status': True,
+        'data': {
+            'classrooms': ['100', '101', '102', '103', '208', '209', '210', '211']
+        }
+    }
+
+
 functions = {
     'confirm_basic_info': confirm_basic_info,
     'get_timetable_data': get_timetable_data,
     'get_result': get_result,
     'update_availability': update_availability,
     'get_teachers_list': get_teachers_list,
+    'get_classrooms': get_classrooms,
 }
 
 

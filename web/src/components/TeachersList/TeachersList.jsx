@@ -5,11 +5,15 @@ import Buttons from '~/components/StyledButtons/Buttons';
 import BackButton from '~/components/StyledButtons/BackButton';
 import ForwardButton from '~/components/StyledButtons/ForwardButton';
 import { IconPlus, IconX } from '@tabler/icons';
+import Modal from '../Modal/Modal';
+import { AddSubjectModalContent } from './ModalContent/AddSubjectModalContent';
+import AddPreferredClassroomModalContent from './ModalContent/AddPreferredClassroomModalContent';
 
 const StyledTeacherInfo = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
+  max-height: 100vh;
   align-items: center;
   justify-content: center;
   padding: 3rem;
@@ -27,6 +31,7 @@ const StyledContent = styled.div`
   flex-direction: row;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   max-width: 50rem;
 `;
 
@@ -41,6 +46,7 @@ const StyledList = styled.div`
   width: 40%;
   max-width: 20rem;
   border-right: 1px solid #14b1ae;
+  height: 100%;
 `;
 
 const StyledOption = styled.div`
@@ -86,13 +92,41 @@ const StyledSection = styled.div`
   align-items: flex-start;
   width: 100%;
   margin-bottom: 1rem;
-  width: 100%;
+  overflow-y: auto;
 `;
 
-const StyledSectionHeader = styled.p`
+const StyledSectionHeader = styled.div`
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const StyledAddSubjectButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  padding: 0.125rem 0.25rem;
+  font-weight: 400;
+  font-size: 0.8rem;
+  /* background-color: hsla(0, 0%, 100%, 0.05); */
+  background-color: #14b1ae;
+  &:hover {
+    /* background-color: hsla(0, 0%, 100%, 0.1); */
+    background-color: hsl(178.8535031847134, 79.69543147208124%, 30%);
+  }
+  svg {
+    margin-left: 0.25rem;
+    width: 1rem;
+    height: 1rem;
+  }
 `;
 
 const StyledSubject = styled.div`
@@ -117,7 +151,6 @@ const StyledClassroomsList = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 0.25rem;
   p {
     margin-right: 0.5rem;
   }
@@ -132,6 +165,7 @@ const StyledClassroom = styled.div`
   border-radius: 0.25rem;
   background-color: hsla(0, 0%, 100%, 0.05);
   height: 2rem;
+  margin-top: 0.5rem;
   &:hover {
     background-color: hsla(0, 0%, 100%, 0.1);
   }
@@ -158,6 +192,7 @@ const StyledAddClassroomButton = styled.button`
   cursor: pointer;
   font-family: inherit;
   height: 2rem;
+  margin-top: 0.5rem;
   &:hover {
     background-color: hsl(178.8535031847134, 79.69543147208124%, 30%);
   }
@@ -173,6 +208,11 @@ const StyledAddClassroomButton = styled.button`
 function TeachersList() {
   const [teachersList, setTeachersList] = useState([]);
   const [selectedTeacher, setSelectedTeacher] = useState(null);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [modalContent, setModalContent] = useState(null);
+  const [modalTitle, setModalTitle] = useState('');
 
   const fetchTeachersList = async () => {
     const response = await eel.request_handler('get_teachers_list', {})();
@@ -200,10 +240,54 @@ function TeachersList() {
     setTeachersList(newTeachersList);
   };
 
+  const [subjects, setSubjects] = useState([
+    'Matematyka',
+    'Język polski',
+    'Język angielski',
+    'Biologia',
+    'Chemia',
+    'Fizyka',
+    'Geografia',
+    'Historia',
+  ]);
+
+  const openAddingSubjectsModal = () => {
+    setIsModalOpen(true);
+    setModalTitle('Dodaj przedmiot');
+
+    setModalContent(
+      <AddSubjectModalContent
+        subjects={subjects}
+        setSubjects={setSubjects}
+        teachersList={teachersList}
+        setTeachersList={setTeachersList}
+        selectedTeacher={selectedTeacher}
+        setIsModalOpen={setIsModalOpen}
+      />,
+    );
+  };
+
+  const openAddingPreferredClassroomsModal = subject => {
+    setIsModalOpen(true);
+    setModalTitle('Dodaj salę');
+
+    console.log(subject);
+
+    setModalContent(
+      <AddPreferredClassroomModalContent
+        currentClassrooms={subject.preferredClassrooms}
+        teachersList={teachersList}
+        setTeachersList={setTeachersList}
+        selectedTeacher={selectedTeacher}
+        subjectName={subject.name}
+        setIsModalOpen={setIsModalOpen}
+      />,
+    );
+  };
+
   return (
     <StyledTeacherInfo>
       <StyledHeader>Nauczyciele</StyledHeader>
-
       <StyledContent>
         <StyledList>
           {teachersList.map((teacher, index) => (
@@ -221,7 +305,13 @@ function TeachersList() {
         <StyledForm>
           <StyledTeacherName>{selectedTeacher}</StyledTeacherName>
           <StyledSection>
-            <StyledSectionHeader>Przedmioty</StyledSectionHeader>
+            <StyledSectionHeader>
+              <p>Przedmioty</p>
+              <StyledAddSubjectButton onClick={openAddingSubjectsModal}>
+                <p>Dodaj przedmiot</p>
+                <IconPlus />
+              </StyledAddSubjectButton>
+            </StyledSectionHeader>
             {teachersList
               .find(teacher => teacher.name === selectedTeacher)
               ?.subjects.map((subject, index) => (
@@ -229,7 +319,7 @@ function TeachersList() {
                   <StyledSubjectName>{subject.name}</StyledSubjectName>
                   <p>Preferowane sale:</p>
                   <StyledClassroomsList>
-                    {subject.preferredClassrooms?.map((classroom, index) => (
+                    {subject.preferredClassrooms?.sort().map((classroom, index) => (
                       <StyledClassroom key={index}>
                         <p>{classroom}</p>
                         <IconX
@@ -239,7 +329,7 @@ function TeachersList() {
                         />
                       </StyledClassroom>
                     ))}
-                    <StyledAddClassroomButton>
+                    <StyledAddClassroomButton onClick={() => openAddingPreferredClassroomsModal(subject)}>
                       <IconPlus />
                     </StyledAddClassroomButton>
                   </StyledClassroomsList>
@@ -253,6 +343,7 @@ function TeachersList() {
         <BackButton to="/basic-info" />
         <ForwardButton to="/timetable" />
       </Buttons>
+      <Modal isVisible={isModalOpen} setIsVisible={setIsModalOpen} title={modalTitle} content={modalContent} />
     </StyledTeacherInfo>
   );
 }
