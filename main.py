@@ -2,7 +2,7 @@ import json
 import platform
 import sys
 import eel
-
+import plot
 # Use the latest version of Eel from parent directory
 sys.path.insert(1, '../../')
 
@@ -168,6 +168,11 @@ def time_table(x, y, content):
     global matrix
     matrix[y][x] = content
     return json.dump(matrix)
+
+#Functions for generating plots which are used to compare two algorithms
+#Plots are saved to plot1.png
+plot.generate_plot_1(dev_a=[5.4, 25, 103.9], dev_b=[2.8, 12.2, 60.8], dev_x=[5, 25, 125])
+plot.generate_plot_2(dev_a=[127.59, 536.76, 2922.77], dev_b=[131.70, 538.55, 5198.56], dev_x=[5, 25, 125])
 
 
 if __name__ == '__main__':
