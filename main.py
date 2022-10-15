@@ -3,7 +3,6 @@ import platform
 import sys
 import eel
 
-
 # Use the latest version of Eel from parent directory
 sys.path.insert(1, '../../')
 
