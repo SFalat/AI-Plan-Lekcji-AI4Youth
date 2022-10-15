@@ -1,18 +1,30 @@
 from matplotlib import pyplot as plt
-from random import shuffle
+import numpy as np
 
-dev_y = [i for i in range(0, 9)]
-dev_z = [i for i in range(0, 9)]
-dev_x = [i for i in range(0, 90, 10)]
-shuffle(dev_z)
 
-plt.plot(dev_x, dev_y, color='r', label='sort')
-plt.plot(dev_x, dev_z, color='g', label='random')
+def generate_plot_1(dev_a, dev_b, dev_x):
+    plt.title("Porównanie algorytmów układających plan lekcji (średnia z 10 testów)")
+    xpos = np.arange(len(dev_a))
+    plt.xticks(xpos, dev_x)
+    plt.bar(xpos - 0.2, dev_a, width=0.4, label="Algorytm genetyczny")
+    plt.bar(xpos + 0.2, dev_b, width=0.4, label="Algorytm optymalizacji rojem cząstek")
+    plt.legend()
+    plt.xlabel("Ilość przydziałów nauczycieli")
+    plt.ylabel("Ocena algorytmu (na podstawie ilości okienek -> min)")
 
-plt.xlabel("Czas algorytmiczny")
-plt.ylabel("Ilość nauczycieli")
-plt.title("Porównanie algorytmów")
+    plt.savefig("plot1.png")
+    plt.show()
 
-plt.legend()
-plt.savefig("plot.png")
-plt.show()
+
+def generate_plot_2(dev_a, dev_b, dev_x):
+    plt.title("Porównanie algorytmów układających plan lekcji (średnia z 10 testów)")
+    xpos = np.arange(len(dev_a))
+    plt.xticks(xpos, dev_x)
+    plt.bar(xpos - 0.2, dev_a, width=0.4, label="Algorytm genetyczny")
+    plt.bar(xpos + 0.2, dev_b, width=0.4, label="Algorytm optymalizacji rojem cząstek")
+    plt.legend()
+    plt.xlabel("Ilość przydziałów nauczycieli")
+    plt.ylabel("Czas wykonywania (w sekundach)")
+
+    plt.savefig("plot2.png")
+    plt.show()
