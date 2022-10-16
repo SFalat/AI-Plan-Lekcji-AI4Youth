@@ -5,7 +5,7 @@ import plot
 # Use the latest version of Eel from parent directory
 sys.path.insert(1, '../../')
 
-#This project uses eel - the library that enables JavaScript to Python communication
+# This project uses eel - the library that enables JavaScript to Python communication
 
 
 # Functions for generating plots which are used to compare two algorithms
@@ -15,7 +15,9 @@ plot.generate_plot_1(dev_a=[5.4, 25, 103.9], dev_b=[
 plot.generate_plot_2(dev_a=[127.59, 536.76, 2922.77], dev_b=[
                      131.70, 538.55, 5198.56], dev_x=[5, 25, 125])
 
-#Eel to python communication handler
+# Eel to python communication handler
+
+
 @eel.expose
 def request_handler(name, data):
     print('request_handler', name)
@@ -32,13 +34,6 @@ def request_handler(name, data):
         if 'message' in result:
             message = result['message']
         return {'status': 'error', 'message': message}
-
-
-@eel.expose  # Expose function to JavaScript
-def say_hello_py(x):
-    # Print message from JavaScript on app initialization, then call a JS function
-    print('Hello from %s' % x)  # noqa T001
-    eel.say_hello_js('Python {from within say_hello_py()}!')
 
 
 def confirm_basic_info(data):
@@ -177,7 +172,8 @@ def get_classrooms(data):
         }
     }
 
-#List of all functions, used in eel handler
+
+# List of all functions, used in eel handler
 functions = {
     'confirm_basic_info': confirm_basic_info,
     'get_timetable_data': get_timetable_data,
