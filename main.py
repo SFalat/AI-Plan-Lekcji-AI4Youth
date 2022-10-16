@@ -5,15 +5,17 @@ import plot
 # Use the latest version of Eel from parent directory
 sys.path.insert(1, '../../')
 
+#This project uses eel - the library that enables JavaScript to Python communication
+
 
 # Functions for generating plots which are used to compare two algorithms
-# Plots are saved to plot1.png
+# Plots are saved to plot1.png and plot2.png
 plot.generate_plot_1(dev_a=[5.4, 25, 103.9], dev_b=[
                      2.8, 12.2, 60.8], dev_x=[5, 25, 125])
 plot.generate_plot_2(dev_a=[127.59, 536.76, 2922.77], dev_b=[
                      131.70, 538.55, 5198.56], dev_x=[5, 25, 125])
 
-
+#Eel to python communication handler
 @eel.expose
 def request_handler(name, data):
     print('request_handler', name)
@@ -175,7 +177,7 @@ def get_classrooms(data):
         }
     }
 
-
+#List of all functions, used in eel handler
 functions = {
     'confirm_basic_info': confirm_basic_info,
     'get_timetable_data': get_timetable_data,
@@ -222,13 +224,6 @@ def start_eel(develop):
 # Function for closing python program
 def end_session():
     exit()
-
-
-@eel.expose
-def time_table(x, y, content):
-    global matrix
-    matrix[y][x] = content
-    return json.dump(matrix)
 
 
 if __name__ == '__main__':
