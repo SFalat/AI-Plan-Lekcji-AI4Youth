@@ -1,25 +1,24 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-// import Buttons from '~/components/StyledButtons/Buttons';
-// import BackButton from '~/components/StyledButtons/BackButton';
-// import ForwardButton from '~/components/StyledButtons/ForwardButton';
-// import ConfirmButton from '~/components/StyledButtons/ConfirmButton';
+import Buttons from '~/components/StyledButtons/Buttons';
+import BackButton from '~/components/StyledButtons/BackButton';
+import ForwardButton from '~/components/StyledButtons/ForwardButton';
 
 const StyledTimetable = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   padding: 2rem;
-  overflow-y: auto;
+  overflow: hidden;
 `;
 
 const StyledTable = styled.table`
   border-collapse: collapse;
   width: 100%;
   max-width: 70rem;
-  max-height: 80vh;
-  margin: auto 0;
+  overflow-y: auto;
 `;
 
 // Table head
@@ -56,14 +55,18 @@ const StyledCellContent = styled.div`
   height: 100%;
   padding: 0.25rem 0.5rem;
   line-height: 1.2rem;
+  &:not(:last-child) {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.25);
+  }
 `;
 
 const StyledGroupAndTeacher = styled.div`
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.8rem;
   display: flex;
   flex-wrap: nowrap;
   line-height: 1.2rem;
+  color: hsla(0, 0%, 100%, 0.5);
 
   p:not(:last-child) {
     margin-right: 0.25rem;
@@ -108,19 +111,23 @@ function Result() {
   }
 
   const getCell = hourInWeek => {
-    let cell = resultData?.timetable?.find(el => el[0] === hourInWeek);
-    if (cell) {
-      return (
-        <StyledCellContent>
-          <StyledSubjectName>{cell[2]}</StyledSubjectName>
-          <StyledGroupAndTeacher>
-            <p style={{ fontWeight: 600 }}>{cell[1]}</p>
-            <p>
-              {cell[3]} {cell[4]}
-            </p>
-          </StyledGroupAndTeacher>
-        </StyledCellContent>
-      );
+    let cells = resultData?.timetable?.filter(el => el[0] === hourInWeek);
+    if (cells) {
+      const abc = [];
+      cells.forEach((cell, index) => {
+        abc.push(
+          <StyledCellContent key={index}>
+            <StyledSubjectName>{cell[2]}</StyledSubjectName>
+            <StyledGroupAndTeacher>
+              <p style={{ fontWeight: 600 }}>{cell[1]}</p>
+              <p>
+                {cell[3]} {cell[4]}
+              </p>
+            </StyledGroupAndTeacher>
+          </StyledCellContent>,
+        );
+      });
+      return abc;
     } else {
       return <div></div>;
     }
@@ -150,10 +157,10 @@ function Result() {
           ))}
         </StyledTbody>
       </StyledTable>
-      {/* <Buttons>
-        <BackButton to="/teacher-info" />
+      <Buttons>
+        <BackButton to="/timetable" />
         <ForwardButton to="/result" />
-      </Buttons> */}
+      </Buttons>
     </StyledTimetable>
   );
 }

@@ -10,6 +10,7 @@ import splitIntoChunk from './splitIntoChunk.js';
 
 const {
   StyledTimetable,
+  StyledHeader,
   StyledTable,
   StyledThead,
   StyledHeadTd,
@@ -115,6 +116,7 @@ function Timetable() {
 
   return (
     <StyledTimetable>
+      <StyledHeader>Dostępność nauczycieli</StyledHeader>
       <TopButtons>
         <StyledSelect
           onChange={e => {

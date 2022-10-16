@@ -6,6 +6,14 @@ import plot
 sys.path.insert(1, '../../')
 
 
+# Functions for generating plots which are used to compare two algorithms
+# Plots are saved to plot1.png
+plot.generate_plot_1(dev_a=[5.4, 25, 103.9], dev_b=[
+                     2.8, 12.2, 60.8], dev_x=[5, 25, 125])
+plot.generate_plot_2(dev_a=[127.59, 536.76, 2922.77], dev_b=[
+                     131.70, 538.55, 5198.56], dev_x=[5, 25, 125])
+
+
 @eel.expose
 def request_handler(name, data):
     print('request_handler', name)
@@ -74,28 +82,28 @@ def get_result(data):
         'data': {
             'hours': 13,
             'timetable': [
-                [3, "1A", "Programowanie", "Szaleniec", "Wojciech", 4],
-                [9, "1A", "Biologia", "Bucior", "Renata", 16],
-                [16, "1A", "Matematyka", "Bucior", "Renata", 15],
-                [16, "1A", "Chemia", "Szaleniec", "Wojciech", 4],
-                [27, "1A", "Chemia", "Szaleniec", "Wojciech", 17],
-                [31, "1A", "Programowanie", "Szaleniec", "Wojciech", 9],
-                [36, "1A", "Chemia", "Szaleniec", "Wojciech", 4],
-                [53, "1A", "Chemia", "Szaleniec", "Wojciech", 3],
-                [58, "1A", "Chemia", "Szaleniec", "Wojciech", 10],
-                [59, "1A", "Matematyka", "Bucior", "Renata", 16],
                 [1, "1B", "Historia", "Bucior", "Renata", 5],
                 [2, "1B", "Historia", "Bucior", "Renata", 11],
-                [47, "1B", "HIT", "Wyczesany", "Darek", 4],
-                [52, "1B", "Historia", "Bucior", "Renata", 6],
+                [3, "1A", "Programowanie", "Szaleniec", "Wojciech", 4],
+                [4, "1A", "Biologia", "Bucior", "Renata", 16],
+                [16, "1A", "Chemia", "Szaleniec", "Wojciech", 4],
+                [16, "1A", "Matematyka", "Bucior", "Renata", 15],
+                [17, "1C", "Historia", "Wyczesany", "Darek", 2],
+                [27, "1A", "Chemia", "Szaleniec", "Wojciech", 17],
+                [28, "1C", "Historia", "Wyczesany", "Darek", 12],
+                [29, "1A", "Programowanie", "Szaleniec", "Wojciech", 9],
+                [30, "1A", "Chemia", "Szaleniec", "Wojciech", 4],
+                [31, "1C", "Historia", "Wyczesany", "Darek", 8],
+                [41, "1C", "Historia", "Wyczesany", "Darek", 9],
+                [42, "1B", "HIT", "Wyczesany", "Darek", 4],
+                [43, "1B", "Historia", "Bucior", "Renata", 6],
+                [53, "1A", "Chemia", "Szaleniec", "Wojciech", 3],
                 [53, "1B", "HIT", "Wyczesany", "Darek", 6],
-                [23, "1C", "Historia", "Wyczesany", "Darek", 2],
-                [29, "1C", "Historia", "Wyczesany", "Darek", 12],
-                [38, "1C", "Historia", "Wyczesany", "Darek", 8],
-                [45, "1C", "Historia", "Wyczesany", "Darek", 9],
-                [55, "1C", "Historia", "Wyczesany", "Darek", 9],
-                [58, "1C", "Historia", "Wyczesany", "Darek", 16],
-                [61, "1C", "Historia", "Wyczesany", "Darek", 18],
+                [54, "1C", "Historia", "Wyczesany", "Darek", 9],
+                [55, "1A", "Chemia", "Szaleniec", "Wojciech", 10],
+                [55, "1C", "Historia", "Wyczesany", "Darek", 16],
+                [56, "1A", "Matematyka", "Bucior", "Renata", 16],
+                [57, "1C", "Historia", "Wyczesany", "Darek", 18]
             ]
         }
     }
@@ -226,11 +234,3 @@ def time_table(x, y, content):
 if __name__ == '__main__':
     # Pass any second argument to enable debugging
     start_eel(develop=len(sys.argv) == 2)
-
-
-# Functions for generating plots which are used to compare two algorithms
-# Plots are saved to plot1.png
-plot.generate_plot_1(dev_a=[5.4, 25, 103.9], dev_b=[
-                     2.8, 12.2, 60.8], dev_x=[5, 25, 125])
-plot.generate_plot_2(dev_a=[127.59, 536.76, 2922.77], dev_b=[
-                     131.70, 538.55, 5198.56], dev_x=[5, 25, 125])
