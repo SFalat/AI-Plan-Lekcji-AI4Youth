@@ -6,6 +6,7 @@ import TeachersList from '../components/TeachersList/TeachersList';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import Timetable from '../components/Timetable/Timetable';
 import Result from '../components/Result/Result';
+import Summary from '../components/Summary/Summary';
 
 const router = createHashRouter([
   {
@@ -28,6 +29,10 @@ const router = createHashRouter([
   {
     path: '/result',
     element: <Result />,
+  },
+  {
+    path: '/summary',
+    element: <Summary />,
   },
 ]);
 

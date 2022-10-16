@@ -159,7 +159,7 @@ function Result() {
       </StyledTable>
       <Buttons>
         <BackButton to="/timetable" />
-        <ForwardButton to="/result" />
+        <ForwardButton to="/summary" />
       </Buttons>
     </StyledTimetable>
   );
