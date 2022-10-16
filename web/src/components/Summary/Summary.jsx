@@ -44,8 +44,8 @@ function Summary() {
     <StyledSummary>
       <StyledHeader>Podsumowanie</StyledHeader>
       <StyledImagesContainer>
-        <StyledImage referrerPolicy="no-referrer" src={'https://i.imgur.com/HcVOuej.png'} alt="image1" />
-        <StyledImage referrerPolicy="no-referrer" src={'https://i.imgur.com/Hfil2Ex.png'} alt="image1" />
+        <StyledImage referrerPolicy="no-referrer" src={'https://i.imgur.com/PO1HJkA.png'} alt="image1" />
+        <StyledImage referrerPolicy="no-referrer" src={'https://i.imgur.com/4b9hTRX.png'} alt="image1" />
       </StyledImagesContainer>
       <Buttons>
         <BackButton to="/result" />
