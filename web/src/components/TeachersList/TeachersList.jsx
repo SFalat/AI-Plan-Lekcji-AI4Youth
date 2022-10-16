@@ -46,7 +46,6 @@ const StyledList = styled.div`
   width: 40%;
   max-width: 20rem;
   border-right: 1px solid #14b1ae;
-  height: 100%;
 `;
 
 const StyledOption = styled.div`
@@ -270,8 +269,6 @@ function TeachersList() {
   const openAddingPreferredClassroomsModal = subject => {
     setIsModalOpen(true);
     setModalTitle('Dodaj salę');
-
-    console.log(subject);
 
     setModalContent(
       <AddPreferredClassroomModalContent
