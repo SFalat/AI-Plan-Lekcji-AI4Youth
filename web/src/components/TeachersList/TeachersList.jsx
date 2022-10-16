@@ -69,6 +69,28 @@ const StyledOption = styled.div`
   }
 `;
 
+const StyledAddTeacher = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  cursor: pointer;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: #14b1ae;
+  &:hover {
+    /* background-color: hsla(0, 0%, 100%, 0.1); */
+    background-color: hsl(178.8535031847134, 79.69543147208124%, 30%);
+  }
+`;
+
 const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
@@ -298,6 +320,7 @@ function TeachersList() {
               {teacher.name}
             </StyledOption>
           ))}
+          <StyledAddTeacher>Dodaj</StyledAddTeacher>
         </StyledList>
         <StyledForm>
           <StyledTeacherName>{selectedTeacher}</StyledTeacherName>

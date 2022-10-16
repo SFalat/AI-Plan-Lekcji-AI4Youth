@@ -14,6 +14,13 @@ const StyledTimetable = styled.div`
   overflow: hidden;
 `;
 
+const StyledHeader = styled.header`
+  color: #14b1ae;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+`;
+
 const StyledTable = styled.table`
   border-collapse: collapse;
   width: 100%;
@@ -135,6 +142,7 @@ function Result() {
 
   return (
     <StyledTimetable>
+      <StyledHeader>Wygenerowany plan</StyledHeader>
       <StyledTable>
         <StyledThead>
           <StyledHeadTr>
